@@ -45,24 +45,14 @@ template <class T, int SUM_N, int blockSize>
 void sumReduce(T *sum, T *sum2, sycl::group<3> &cta, sycl::sub_group &tile32,
                __TOptionValue *d_CallValue, sycl::nd_item<3> item_ct1) {
   const int VEC = 32;
-  // const int tid = cta.thread_rank();
+  
   int tid = cta.get_local_id()[2];
-  // int tid = cta.get_local_id(2);
-  // int tid = cta.get_linear_id() ;
-
+ 
   T beta = sum[tid];
   T beta2 = sum2[tid];
   T temp, temp2;
 
   for (int i = VEC / 2; i > 0; i >>= 1) {
-    /* if (tile32.thread_rank() < i) {
-       temp = sum[tid + i];
-       temp2 = sum2[tid + i];
-       beta += temp;
-       beta2 += temp2;
-       sum[tid] = beta;
-       sum2[tid] = beta2;
-     }*/
     if (tile32.get_local_id() < i) {
       temp = sum[tid + i];
       temp2 = sum2[tid + i];
@@ -74,8 +64,6 @@ void sumReduce(T *sum, T *sum2, sycl::group<3> &cta, sycl::sub_group &tile32,
 
     item_ct1.barrier();
   }
-
-  item_ct1.barrier();
 
   if (tid == 0) {
     beta = 0;
