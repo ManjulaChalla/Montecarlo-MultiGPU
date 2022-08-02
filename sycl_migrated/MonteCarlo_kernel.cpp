@@ -89,9 +89,8 @@ static void MonteCarloOneBlockPerOption(
     __TOptionValue *__restrict d_CallValue, int pathN, int optionN,
     sycl::nd_item<3> item_ct1, real *s_SumCall, real *s_Sum2Call) {
   // Handle to thread block group
-  // auto cta = item_ct1.get_group();
+  
   sycl::group cta = item_ct1.get_group();
-  // cg::thread_block_tile<32> tile32 = cg::tiled_partition<32>(cta);
   sycl::sub_group tile32 = item_ct1.get_sub_group();
 
   const int SUM_N = THREAD_N;
@@ -120,9 +119,7 @@ static void MonteCarloOneBlockPerOption(
 
 #pragma unroll 8
       for (int i = iSum; i < pathN; i += SUM_N) {
-        /* real r =
-             localState.generate<oneapi::mkl::rng::device::gaussian<float>,
-           1>();*/
+        
         auto r = oneapi::mkl::rng::device::generate(dist, localState);
         real callValue = endCallValue(S, X, r[0], MuByT, VBySqrtT);
         sumCall.Expected += callValue;
@@ -183,9 +180,7 @@ extern "C" void initMonteCarloGPU(TOptionPlan *plan, sycl::queue *stream) {
                plan->gridSize * THREAD_N *
                    sizeof(oneapi::mkl::rng::device::philox4x32x10<4>))
       .wait();
-  // std::cout<<"Grid size \n"<< plan->gridSize<<"\n";
-  // std::cout<<"Thread size "<< THREAD_N<<"\n";
-  // std::cout<<" inside the initMontecarloGPU"<<"\n";
+
   // place each device pathN random numbers apart on the random number sequence
   stream->submit([&](sycl::handler &cgh) {
     auto plan_rngStates_ct0 = plan->rngStates;
