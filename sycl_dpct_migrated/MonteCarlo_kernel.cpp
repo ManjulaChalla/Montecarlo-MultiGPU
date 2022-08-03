@@ -46,7 +46,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <cmath>
 
-#include "MonteCarlo_reduction.dp.hpp"
+#include "MonteCarlo_reduction.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Internal GPU-side data structures
@@ -142,7 +142,7 @@ static void MonteCarloOneBlockPerOption(
   }
 }
 
-/ static void rngSetupStates(
+ static void rngSetupStates(
       dpct::rng::device::rng_generator<
           oneapi::mkl::rng::device::philox4x32x10<4>> *rngState,
       int device_id, sycl::nd_item<3> item_ct1) {
