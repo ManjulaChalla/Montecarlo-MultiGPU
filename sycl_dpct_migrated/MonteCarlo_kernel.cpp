@@ -183,9 +183,7 @@ extern "C" void initMonteCarloGPU(TOptionPlan *plan) {
       oneapi::mkl::rng::device::philox4x32x10<4>>>(plan->gridSize * THREAD_N,
                                                    dpct::get_default_queue());
 
-  std::cout << "inside initmontecarlo \n" << &q_ct1;
-  std::cout << "\nRunning on "
-            << q_ct1.get_device().get_info<sycl::info::device::name>() << "\n";
+
 
   dpct::get_default_queue()
       .memset(plan->rngStates, 0,
