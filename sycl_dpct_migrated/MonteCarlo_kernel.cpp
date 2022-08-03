@@ -142,10 +142,10 @@ static void MonteCarloOneBlockPerOption(
   }
 }
 
- static void rngSetupStates(
-      dpct::rng::device::rng_generator<
-          oneapi::mkl::rng::device::philox4x32x10<4>> *rngState,
-      int device_id, sycl::nd_item<3> item_ct1) {
+static void rngSetupStates(
+    dpct::rng::device::rng_generator<oneapi::mkl::rng::device::philox4x32x10<4>>
+        *rngState,
+    int device_id, sycl::nd_item<3> item_ct1) {
   // determine global thread id
   int tid = item_ct1.get_local_id(2) +
             item_ct1.get_group(2) * item_ct1.get_local_range(2);
@@ -182,8 +182,6 @@ extern "C" void initMonteCarloGPU(TOptionPlan *plan) {
   plan->rngStates = sycl::malloc_device<dpct::rng::device::rng_generator<
       oneapi::mkl::rng::device::philox4x32x10<4>>>(plan->gridSize * THREAD_N,
                                                    dpct::get_default_queue());
-
-
 
   dpct::get_default_queue()
       .memset(plan->rngStates, 0,
