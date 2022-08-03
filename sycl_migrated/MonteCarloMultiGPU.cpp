@@ -37,6 +37,10 @@
 #include <string.h>
 
 #include <CL/sycl.hpp>
+
+// includes, project
+#include <helper_cuda.h>  // helper functions (cuda error checking and initialization)
+#include <helper_functions.h>  // Helper functions (utilities, parsing, timing)
 #include <multithreading.h>
 using namespace sycl;
 #include <chrono>
@@ -106,6 +110,9 @@ StopWatchInterface **hTimer = NULL;
 static CUT_THREADPROC solverThread(TOptionPlan *plan) {
   // Start the timer
   sdkStartTimer(&hTimer[plan->device]);
+
+  // Allocate intermediate memory for MC integrator and initialize
+  // RNG states
   sycl::queue stream = sycl::queue(
       (sycl::platform(sycl::gpu_selector())
            .get_devices(sycl::info::device_type::gpu)[plan->device]));
@@ -148,6 +155,10 @@ static void multiSolver(TOptionPlan *plan, int nPlans) {
   for (int i = 0; i < nPlans; i++) {
     streams[i].wait_and_throw();
   }
+
+  // Start the timer
+  sdkResetTimer(&hTimer[0]);
+  sdkStartTimer(&hTimer[0]);
 
   for (int i = 0; i < nPlans; i++) {
     // Main computations
