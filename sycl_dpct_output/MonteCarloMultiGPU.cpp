@@ -31,20 +31,22 @@
  * See supplied whitepaper for more explanations.
  */
 
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include <CL/sycl.hpp>
 #include <dpct/dpct.hpp>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
 
 // includes, project
-#include <helper_functions.h>  // Helper functions (utilities, parsing, timing)
 #include <helper_cuda.h>  // helper functions (cuda error checking and initialization)
+#include <helper_functions.h>  // Helper functions (utilities, parsing, timing)
 #include <multithreading.h>
 
-#include "MonteCarlo_common.h"
 #include <chrono>
+
+#include "MonteCarlo_common.h"
 
 int *pArgc = NULL;
 char **pArgv = NULL;

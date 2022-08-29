@@ -40,9 +40,8 @@
 
 template <class T, int SUM_N, int blockSize>
 void sumReduce(T *sum, T *sum2, sycl::group &cta,
-                          cg::thread_block_tile<32> &tile32,
-                          __TOptionValue *d_CallValue,
-                          sycl::nd_item<3> item_ct1) {
+               cg::thread_block_tile<32> &tile32, __TOptionValue *d_CallValue,
+               sycl::nd_item<3> item_ct1) {
   const int VEC = 32;
   const int tid = cta.thread_rank();
 

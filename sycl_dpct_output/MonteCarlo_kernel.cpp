@@ -29,15 +29,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Global types
 ////////////////////////////////////////////////////////////////////////////////
+#include <helper_cuda.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 #include <CL/sycl.hpp>
 #include <dpct/dpct.hpp>
-#include <stdlib.h>
-#include <stdio.h>
-
-#include <helper_cuda.h>
+#include <dpct/rng_utils.hpp>
 #include <oneapi/mkl.hpp>
 #include <oneapi/mkl/rng/device.hpp>
-#include <dpct/rng_utils.hpp>
 
 #include "MonteCarlo_common.h"
 
@@ -45,8 +45,9 @@
 // Helper reduction template
 // Please see the "reduction" CUDA Sample for more information
 ////////////////////////////////////////////////////////////////////////////////
-#include "MonteCarlo_reduction.dp.hpp"
 #include <cmath>
+
+#include "MonteCarlo_reduction.dp.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Internal GPU-side data structures
@@ -65,13 +66,13 @@ typedef struct dpct_type_154681 {
 // Overloaded shortcut payoff functions for different precision modes
 ////////////////////////////////////////////////////////////////////////////////
 inline float endCallValue(float S, float X, float r, float MuByT,
-                                     float VBySqrtT) {
+                          float VBySqrtT) {
   float callValue = S * sycl::exp(MuByT + VBySqrtT * r) - X;
   return (callValue > 0.0F) ? callValue : 0.0F;
 }
 
-inline double endCallValue(double S, double X, double r,
-                                      double MuByT, double VBySqrtT) {
+inline double endCallValue(double S, double X, double r, double MuByT,
+                           double VBySqrtT) {
   double callValue = S * sycl::exp(MuByT + VBySqrtT * r) - X;
   return (callValue > 0.0) ? callValue : 0.0;
 }
@@ -94,9 +95,9 @@ static void MonteCarloOneBlockPerOption(
     __TOptionValue *__restrict d_CallValue, int pathN, int optionN,
     sycl::nd_item<3> item_ct1, real *s_SumCall, real *s_Sum2Call) {
   // Handle to thread block group
-//  auto cta = item_ct1.get_group();
+  //  auto cta = item_ct1.get_group();
   sub::group cta = item_ct1.get_group();
- // cg::thread_block_tile<32> tile32 = cg::tiled_partition<32>(cta);
+  // cg::thread_block_tile<32> tile32 = cg::tiled_partition<32>(cta);
   sub_group tile32 = item_ct1.get_sub_group();
 
   const int SUM_N = THREAD_N;

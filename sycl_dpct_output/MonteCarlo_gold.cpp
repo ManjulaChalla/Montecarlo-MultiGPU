@@ -25,14 +25,15 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <CL/sycl.hpp>
-#include <dpct/dpct.hpp>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+
+#include <CL/sycl.hpp>
+#include <dpct/dpct.hpp>
+#include <dpct/rng_utils.hpp>
 #include <oneapi/mkl.hpp>
 #include <oneapi/mkl/rng/device.hpp>
-#include <dpct/rng_utils.hpp>
 
 //#include "curand_kernel.h"
 #include "helper_cuda.h"
@@ -113,7 +114,7 @@ extern "C" void MonteCarloCPU(TOptionValue &callValue, TOptionData optionData,
   DPCT1027:1: The call to curandSetPseudoRandomGeneratorSeed was replaced with 0
   because the function call is redundant in DPC++.
   */
-  //checkCudaErrors(0);
+  // checkCudaErrors(0);
 
   if (h_Samples != NULL) {
     samples = h_Samples;
