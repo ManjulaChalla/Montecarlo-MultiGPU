@@ -45,9 +45,9 @@ template <class T, int SUM_N, int blockSize>
 void sumReduce(T *sum, T *sum2, sycl::group<3> &cta, sycl::sub_group &tile32,
                __TOptionValue *d_CallValue, sycl::nd_item<3> item_ct1) {
   const int VEC = 32;
-  
+
   int tid = cta.get_local_id()[2];
- 
+
   T beta = sum[tid];
   T beta2 = sum2[tid];
   T temp, temp2;

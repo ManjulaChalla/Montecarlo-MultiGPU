@@ -89,7 +89,7 @@ static void MonteCarloOneBlockPerOption(
     __TOptionValue *__restrict d_CallValue, int pathN, int optionN,
     sycl::nd_item<3> item_ct1, real *s_SumCall, real *s_Sum2Call) {
   // Handle to thread block group
-  
+
   sycl::group cta = item_ct1.get_group();
   sycl::sub_group tile32 = item_ct1.get_sub_group();
 
@@ -119,7 +119,6 @@ static void MonteCarloOneBlockPerOption(
 
 #pragma unroll 8
       for (int i = iSum; i < pathN; i += SUM_N) {
-        
         auto r = oneapi::mkl::rng::device::generate(dist, localState);
         real callValue = endCallValue(S, X, r[0], MuByT, VBySqrtT);
         sumCall.Expected += callValue;
@@ -150,7 +149,6 @@ static void rngSetupStates(oneapi::mkl::rng::device::philox4x32x10<4> *rngState,
       item_ct1.get_group(2) + item_ct1.get_group_range(2) * device_id,
       {0, static_cast<std::uint64_t>(item_ct1.get_local_id(2) * 8)});
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // Host-side interface to GPU Monte Carlo
@@ -192,10 +190,8 @@ extern "C" void initMonteCarloGPU(TOptionPlan *plan, sycl::queue *stream) {
                      [=](sycl::nd_item<3> item_ct1) {
                        rngSetupStates(plan_rngStates_ct0, plan_device_ct1,
                                       item_ct1);
-                       
                      });
   });
-  
 }
 
 // Compute statistics and deallocate internal device memory
@@ -278,10 +274,7 @@ extern "C" void MonteCarloGPU(TOptionPlan *plan, sycl::queue *stream) {
                            s_Sum2Call_acc_ct1.get_pointer());
                      });
   });
-  
 
   stream->memcpy(h_CallValue, plan->d_CallValue,
                  plan->optionCount * sizeof(__TOptionValue));
-
-  
 }
