@@ -1,8 +1,8 @@
 {
-  "guid": "1F8590F3-FA2E-4246-92E4-C1848E9A768E",	
-  "name": "Jacobi Iterative",
-  "categories": ["Toolkit/oneAPI Direct Programming/DPC++/Dense Linear Algebra"],
-  "description": "Calculates the number of iterations needed to solve system of linear equations using Jacobi Iterative method",
+  "guid": "E1292AE8-F393-4E34-8266-16B2B6F7BBD1",	
+  "name": "MontecarloMultiGPU",
+  "categories": ["Toolkit/oneAPI Direct Programming/DPC++/MapReduce"],
+  "description": "Evaluates fair call price for a given set of European Options using the MonteCarlo approach",
   "toolchain": [ "dpcpp" ],
   "languages": [ { "cpp": {} } ],
   "targetDevice": [ "CPU", "GPU" ],
