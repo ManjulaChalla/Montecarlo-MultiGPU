@@ -69,7 +69,7 @@ make VERBOSE=1
 #### Troubleshooting
 If you receive an error message, troubleshoot the problem using the Diagnostics Utility for Intel&reg; oneAPI Toolkits. The diagnostic utility provides configuration and system checks to help find missing dependencies, permissions errors and other issues. See [Diagnostics Utility for Intel&reg; oneAPI Toolkits User Guide](https://www.intel.com/content/www/us/en/develop/documentation/diagnostic-utility-user-guide/top.html).
 
-## Run the `HSOpticalFlow` Sample
+## Run the `MonteCarloMultiGPU` Sample
 In all cases, you can run the programs for CPU and GPU. The run commands indicate the device target.
 1. Run `02_sycl_dpct_migrated` for CPU and GPU.
     ```
