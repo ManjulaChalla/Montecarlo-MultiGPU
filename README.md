@@ -1,4 +1,4 @@
-﻿# `HSOpticalFlow Estimation` Sample
+﻿# `MonteCarlo MultiGPU` Sample
 
 `HSOpticalFlow Estimation` is a computation of per-pixel motion estimation between two consecutive image frames caused by movement of object or camera. This sample is implemented using SYCL* by migrating code from original CUDA source code for offloading computations to a GPU/CPU and further demonstrates how to optimize and improve processing time.
 
