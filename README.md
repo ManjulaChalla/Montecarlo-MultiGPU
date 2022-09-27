@@ -1,6 +1,6 @@
 ﻿# `MonteCarlo MultiGPU` Sample
 
-`HSOpticalFlow Estimation` is a computation of per-pixel motion estimation between two consecutive image frames caused by movement of object or camera. This sample is implemented using SYCL* by migrating code from original CUDA source code for offloading computations to a GPU/CPU and further demonstrates how to optimize and improve processing time.
+Monte Carlo method is basically a way to compute expected values by generating random scenarios and then averaging them, it is actually very efficient to parallelize. With the GPU we can reduce this problem by parallelizing the paths. That is, we can assign each path to a single thread, simulating thousands of them in parallel, with massive savings in computational power and time.
 
 > **Note**: This sample is migrated from NVIDIA CUDA sample. See the [HSOpticalFlow](https://github.com/NVIDIA/cuda-samples/tree/2e41896e1b2c7e2699b7b7f6689c107900c233bb/Samples/5_Domain_Specific/HSOpticalFlow) sample in the NVIDIA/cuda-samples GitHub.
 
