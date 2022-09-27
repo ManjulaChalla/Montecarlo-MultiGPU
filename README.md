@@ -30,7 +30,7 @@ This sample contains four versions:
 
 ## Key Implementation Details
 
-This sample application demonstrates the CUDA HSOptical Flow Estimation using key concepts such as Image processing, Texture memory, shared memory, and cooperative groups.
+This sample application demonstrates the CUDA MonteCarloMultiGPU using key concepts such as Random Number Generator and Computational Finance.
 
 
 ## Build the `MontecarloMultiGPU` Sample for CPU and GPU
@@ -108,7 +108,7 @@ You can submit build and run jobs through a Portable Bash Script (PBS). A job is
     ```
 4. Change to the `HSOpticalFlow` directory.
     ```
-    cd ~/oneAPI-samples/DirectProgramming/DPC++/StructuredGrids/HSOpticalFlow
+    cd ~/oneAPI-samples/DirectProgramming/DPC++/MapReduce/MonteCarloMultiGPU
     ```
 5. Configure the sample for a GPU node using `qsub`.
     ```
@@ -129,19 +129,9 @@ You can submit build and run jobs through a Portable Bash Script (PBS). A job is
     ```
 
 ### Example Output
-The following example is for `03_sycl_migrated` for GPU with inputs files frame10.ppm and frame11.ppm on Intel(R) UHD Graphics P630 [0x3e96].
+The following example is for `03_sycl_migrated` for GPU on Intel(R) UHD Graphics P630 [0x3e96].
 ```
-HSOpticalFlow Starting...
 
-Loading "frame10.ppm" ...
-Loading "frame11.ppm" ...
-Computing optical flow on CPU...
-Computing optical flow on GPU...
-
-Running on Intel(R) UHD Graphics P630 [0x3e96]
-Processing time on CPU: 2800.426270 (ms)
-Processing time on GPU: 1203.821533 (ms)
-L1 error : 0.018189
 ```
 
 ## License
