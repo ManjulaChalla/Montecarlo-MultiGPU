@@ -2,7 +2,7 @@
 
 Monte Carlo method is basically a way to compute expected values by generating random scenarios and then averaging them, it is actually very efficient to parallelize. With the GPU we can reduce this problem by parallelizing the paths. That is, we can assign each path to a single thread, simulating thousands of them in parallel, with massive savings in computational power and time.
 
-> **Note**: This sample is migrated from NVIDIA CUDA sample. See the [HSOpticalFlow](https://github.com/NVIDIA/cuda-samples/tree/2e41896e1b2c7e2699b7b7f6689c107900c233bb/Samples/5_Domain_Specific/HSOpticalFlow) sample in the NVIDIA/cuda-samples GitHub.
+> **Note**: This sample is migrated from NVIDIA CUDA sample. See the [MonteCarloMultiGPU](https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/MonteCarloMultiGPU) sample in the NVIDIA/cuda-samples GitHub.
 
 | Property                       | Description
 |:---                               |:---
@@ -11,11 +11,6 @@ Monte Carlo method is basically a way to compute expected values by generating r
 
 
 ## Purpose
-
-Optical flow method is based on two assumptions: brightness constancy and spatial
-flow smoothness. These assumptions are combined in a single energy functional and
-solution is found as its minimum point. The sample includes
-both parallel and serial computation, which allows for direct results comparison. The parallel implementation demonstrates the use of Texture memory, shared memory, and cooperative groups. Input to the sample is two image frames and output is the absolute difference value(L1 error) between seriel and parallel computation.
 
 This sample contains four versions:
 
@@ -35,21 +30,10 @@ This sample contains four versions:
 
 ## Key Implementation Details
 
-HSOptical flow involves following : Image downscaling and upscaling, image warping, computing derivatives, and computation of jacobi iteration.
-Image scaling downscaling or upscaling aims to preserve the visual appearance of the original image when it is resized, without changing the amount of data in that image. An image with a resolution of width×height will be resized to new_width×new_height with a scale factor. A scale factor less than 1 indicates shrinking while a scale factor greater than 1 indicates stretching.
-
-Image warping is a transformation which maps all positions in source image plane to positions in a destination plane. Texture addressing mode is set to Clamp, texture coordinates are unnormalized. Clamp addressing mode to handle out-of-range coordinates. It eases computing derivatives and warping whenever we need to reflect out-of-range coordinates across borders.
-Once the warped image is created, derivatives is computed. For each pixel the required stencil points from texture are fetched and convolved them with filter kernel. In terms of CUDA we can create a thread for each pixel. This thread fetches required data and computes derivative.
-
-Next step employs several Jacobi iterations, Border conditions are explicitly handled within the kernel. The number of iterations is held fixed during computations. This eliminates the need for checking error on every iteration. The required number of iterations can be determined experimentally.
-To perform one iteration of Jacobi method in a particular point we need to know results of previous iteration for its four neighbors. If we simply load these values from global memory each value will be loaded four times. We store these values in shared memory. This approach significantly reduces number of global memory accesses, provides better coalescing, and improves overall performance.
-
-Prolongation is performed with bilinear interpolation followed by scaling. and are handled independently. For each output pixel there is a thread which fetches output value from the texture and scales it.
-
 This sample application demonstrates the CUDA HSOptical Flow Estimation using key concepts such as Image processing, Texture memory, shared memory, and cooperative groups.
 
 
-## Build the `HSOpticalFlow` Sample for CPU and GPU
+## Build the `MontecarloMultiGPU` Sample for CPU and GPU
 
 When working with the command-line interface (CLI), you should configure the oneAPI toolkits using environment variables. Set up your CLI environment by sourcing the `setvars` script every time you open a new terminal window. This practice ensures that your compiler, libraries, and tools are ready for development.
 
@@ -66,7 +50,7 @@ When working with the command-line interface (CLI), you should configure the one
 
 ### On Linux*
 Perform the following steps:
-1. Change to the `HSOpticalFlow` directory.
+1. Change to the `MontecarloMultiGPU` directory.
 2. Build the program.
    ```
    $ mkdir build
@@ -105,7 +89,7 @@ In all cases, you can run the programs for CPU and GPU. The run commands indicat
     make run_smo_gpu
     ```
 
-### Run the `HSOpticalFlow` Sample in Intel&reg; DevCloud
+### Run the `MontecarloMultiGPU` Sample in Intel&reg; DevCloud
 
 When running a sample in the Intel&reg; DevCloud, you must specify the compute node (CPU, GPU, FPGA) and whether to run in batch or interactive mode. For more information, see the Intel&reg; oneAPI Base Toolkit [Get Started Guide](https://devcloud.intel.com/oneapi/get_started/).
 
