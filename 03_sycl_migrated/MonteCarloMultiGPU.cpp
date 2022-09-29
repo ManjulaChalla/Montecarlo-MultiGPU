@@ -136,6 +136,16 @@ static CUT_THREADPROC solverThread(TOptionPlan *plan) {
 
 static void multiSolver(TOptionPlan *plan, int nPlans) {
   // allocate and initialize an array of stream handles
+   auto exception_handler = [](exception_list exceptions) {
+    for (std::exception_ptr const &e : exceptions) {
+      try {
+        std::rethrow_exception(e);
+      } catch (exception const &e) {
+        std::cout << "Caught asynchronous SYCL exception during ASUM:\n"
+                  << e.what() << std::endl;
+      }
+    }
+  };
   sycl::queue *streams = (sycl::queue *)malloc(nPlans * sizeof(sycl::queue));
   sycl::event *events = new sycl::event[nPlans];
   std::chrono::time_point<std::chrono::steady_clock> events_ct1_i;
@@ -144,7 +154,7 @@ static void multiSolver(TOptionPlan *plan, int nPlans) {
 
   for (int i = 0; i < nPlans; i++) {
     streams[i] =
-        sycl::queue(gpu_devices[plan[i].device], property::queue::in_order());
+        sycl::queue(gpu_devices[plan[i].device],exception_handler,property::queue::in_order());
   }
 
   for (int i = 0; i < nPlans; i++) {
