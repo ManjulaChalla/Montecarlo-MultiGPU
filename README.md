@@ -129,8 +129,34 @@ You can submit build and run jobs through a Portable Bash Script (PBS). A job is
     ```
 
 ### Example Output
-The following example is for `03_sycl_migrated` for GPU on Intel(R) UHD Graphics P630 [0x3e96].
+The following example is for `03_sycl_migrated` for GPU on Intel(R) UHD Graphics P630 [0x3e96] with Level Zero Backend.
 ```
+./a.out Starting...
+
+Using single CPU thread for multiple GPUs
+MonteCarloMultiGPU
+==================
+Parallelization method  = streamed
+Problem scaling         = weak
+Number of GPUs          = 1
+Total number of options = 16
+Number of paths         = 262144
+main(): generating input data...
+main(): starting 1 host threads...
+main(): GPU statistics, streamed
+GPU Device #0: Intel(R) UHD Graphics [0x9a60]
+Options         : 16
+Simulation paths: 262144
+
+Total time (ms.): 6.054000
+        Note: This is elapsed time for all to compute.
+Options per sec.: 2642.880783
+main(): comparing Monte Carlo and Black-Scholes results...
+Shutting down...
+Test Summary...
+L1 norm        : 4.815522E-04
+Average reserve: 5.051839
+Test passed
 
 ```
 
