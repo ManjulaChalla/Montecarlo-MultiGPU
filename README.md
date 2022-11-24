@@ -1,4 +1,4 @@
-﻿# `MonteCarlo MultiGPU` Sample
+﻿# `MonteCarloMultiGPU` Sample
 
 Monte Carlo method is basically a way to compute expected values by generating random scenarios and then averaging them, it is actually very efficient to parallelize. With the GPU we can reduce this problem by parallelizing the paths. That is, we can assign each path to a single thread, simulating thousands of them in parallel, with massive savings in computational power and time.
 
@@ -33,7 +33,7 @@ This sample contains four versions:
 This sample application demonstrates the CUDA MonteCarloMultiGPU using key concepts such as Random Number Generator and Computational Finance.
 
 
-## Build the `MontecarloMultiGPU` Sample for CPU and GPU
+## Build the `MonteCarloMultiGPU` Sample for CPU and GPU
 
 When working with the command-line interface (CLI), you should configure the oneAPI toolkits using environment variables. Set up your CLI environment by sourcing the `setvars` script every time you open a new terminal window. This practice ensures that your compiler, libraries, and tools are ready for development.
 
@@ -50,7 +50,7 @@ When working with the command-line interface (CLI), you should configure the one
 
 ### On Linux*
 Perform the following steps:
-1. Change to the `MontecarloMultiGPU` directory.
+1. Change to the `MonteCarloMultiGPU` directory.
 2. Build the program.
    ```
    $ mkdir build
@@ -89,7 +89,7 @@ In all cases, you can run the programs for CPU and GPU. The run commands indicat
     make run_smo_gpu
     ```
 
-### Run the `MontecarloMultiGPU` Sample in Intel&reg; DevCloud
+### Run the `MonteCarloMultiGPU` Sample in Intel&reg; DevCloud
 
 When running a sample in the Intel&reg; DevCloud, you must specify the compute node (CPU, GPU, FPGA) and whether to run in batch or interactive mode. For more information, see the Intel&reg; oneAPI Base Toolkit [Get Started Guide](https://devcloud.intel.com/oneapi/get_started/).
 
