@@ -106,7 +106,7 @@ You can submit build and run jobs through a Portable Bash Script (PBS). A job is
     ```
     git clone https://github.com/oneapi-src/oneAPI-samples.git
     ```
-4. Change to the `HSOpticalFlow` directory.
+4. Change to the `MontecarloMultiGPU` directory.
     ```
     cd ~/oneAPI-samples/DirectProgramming/DPC++/MapReduce/MonteCarloMultiGPU
     ```
