@@ -136,7 +136,7 @@ static CUT_THREADPROC solverThread(TOptionPlan *plan) {
 
 static void multiSolver(TOptionPlan *plan, int nPlans) {
   // allocate and initialize an array of stream handles
-   auto exception_handler = [](exception_list exceptions) {
+  auto exception_handler = [](exception_list exceptions) {
     for (std::exception_ptr const &e : exceptions) {
       try {
         std::rethrow_exception(e);
@@ -150,11 +150,12 @@ static void multiSolver(TOptionPlan *plan, int nPlans) {
   sycl::event *events = new sycl::event[nPlans];
   std::chrono::time_point<std::chrono::steady_clock> events_ct1_i;
 
-  auto gpu_devices = cl::sycl::device::get_devices(cl::sycl::info::device_type::gpu);
+  auto gpu_devices =
+      cl::sycl::device::get_devices(cl::sycl::info::device_type::gpu);
 
   for (int i = 0; i < nPlans; i++) {
-    streams[i] =
-        sycl::queue(gpu_devices[plan[i].device],exception_handler,property::queue::in_order());
+    streams[i] = sycl::queue(gpu_devices[plan[i].device], exception_handler,
+                             property::queue::in_order());
   }
 
   for (int i = 0; i < nPlans; i++) {
