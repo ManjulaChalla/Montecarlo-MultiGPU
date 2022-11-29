@@ -31,6 +31,16 @@ This sample contains four versions in the following folders:
 
 ## Key Implementation Details
 
+Pricing of European Options can be done by applying the Black-Scholes formula and with MonteCarlo approach.
+
+MonteCarlo Method first generates a random number based on a probability distribution. The random number then uses the additional inputs of volatility and time to expiration to generate a stock price. The generated stock price at the time of expiration is then used to calculate the value of the option. The model then calculates results over and over, each time using a different set of random values from the probability functions
+
+The first stage of the computation is the generation of a normally distributed N(0, 1)number sequence, which comes down to uniformly distributed sequence generation.Once we’ve generated the desired number of samples, we use them to compute an expected value and confidence width for the underlying option. 
+
+The Black-Scholes model relies on fixed inputs (current stock price, strike price, time until expiration, volatility, risk free rates, and dividend yield).The model is based on geometric Brownian motion with constant drift and volatility.We can calculate the price of the European put and call options explicitly using the Black–Scholes formula.
+
+After repeatedly computing appropriate averages, the estimated price of options can be obtained, which is consistent with the analytical results from Black-Scholes model.
+
 >**Note**: This sample application demonstrates the CUDA MonteCarloMultiGPU using key concepts such as Random Number Generator and Computational Finance.
 
 ## Set Environment Variables
