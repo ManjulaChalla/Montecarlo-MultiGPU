@@ -12,7 +12,8 @@ The `MonteCarloMultiGPU` sample evaluates fair call price for a given set of Eur
 
 ## Purpose
 MonteCarlo method is basically a way to compute expected values by generating random scenarios and then averaging them, it is actually very efficient to parallelize. With the GPU we can reduce this problem by parallelizing the paths. That is, we can assign each path to a single thread, simulating thousands of them in parallel, with massive savings in computational power and time.
-This sample contains four versions:
+
+This sample contains four versions in the following folders:
 
 | Folder Name                          | Description
 |:---                                  |:---
@@ -30,16 +31,15 @@ This sample contains four versions:
 
 ## Key Implementation Details
 
-This sample application demonstrates the CUDA MonteCarloMultiGPU using key concepts such as Random Number Generator and Computational Finance.
+>**Note**: This sample application demonstrates the CUDA MonteCarloMultiGPU using key concepts such as Random Number Generator and Computational Finance.
 
+## Set Environment Variables
+When working with the command-line interface (CLI), you should configure the oneAPI toolkits using environment variables. Set up your CLI environment by sourcing the `setvars` script every time you open a new terminal window. This practice ensures that your compiler, libraries, and tools are ready for development.
 
 ## Build the `MonteCarloMultiGPU` Sample for CPU and GPU
 
-When working with the command-line interface (CLI), you should configure the oneAPI toolkits using environment variables. Set up your CLI environment by sourcing the `setvars` script every time you open a new terminal window. This practice ensures that your compiler, libraries, and tools are ready for development.
-
 > **Note**: If you have not already done so, set up your CLI
-> environment by sourcing  the `setvars` script located in
-> the root of your oneAPI installation.
+> environment by sourcing  the `setvars` script located in the root of your oneAPI installation.
 >
 > Linux*:
 > - For system wide installations: `. /opt/intel/oneapi/setvars.sh`
@@ -50,7 +50,7 @@ When working with the command-line interface (CLI), you should configure the one
 
 ### On Linux*
 Perform the following steps:
-1. Change to the `MonteCarloMultiGPU` directory.
+1. Change to the sample directory.
 2. Build the program.
    ```
    $ mkdir build
@@ -59,20 +59,25 @@ Perform the following steps:
    $ make
    ```
 
-   By default, these commands build the `02_sycl_dpct_migrated`, `03_sycl_migrated` and `04_sycl_migrated_optimized` versions of the program.
+    By default, this command sequence will build the `02_sycl_dpct_migrated`, `03_sycl_migrated`, and `04_sycl_migrated_optimized` versions of the program.
+    
+#### Troubleshooting
 
-If an error occurs, you can get more details by running `make` with the `VERBOSE=1` argument:
+If an error occurs, you can get more details by running `make` with
+the `VERBOSE=1` argument:
 ```
 make VERBOSE=1
 ```
-
-#### Troubleshooting
-If you receive an error message, troubleshoot the problem using the Diagnostics Utility for Intel&reg; oneAPI Toolkits. The diagnostic utility provides configuration and system checks to help find missing dependencies, permissions errors and other issues. See [Diagnostics Utility for Intel&reg; oneAPI Toolkits User Guide](https://www.intel.com/content/www/us/en/develop/documentation/diagnostic-utility-user-guide/top.html).
+If you receive an error message, troubleshoot the problem using the **Diagnostics Utility for Intel® oneAPI Toolkits**. The diagnostic utility provides configuration and system checks to help find missing dependencies, permissions errors, and other issues. See the [Diagnostics Utility for Intel® oneAPI Toolkits User Guide](https://www.intel.com/content/www/us/en/develop/documentation/diagnostic-utility-user-guide/top.html) for more information on using the utility.
 
 ## Run the `MonteCarloMultiGPU` Sample
-In all cases, you can run the programs for CPU and GPU. The run commands indicate the device target.
+
+### On Linux
+
+You can run the programs for CPU and GPU. The commands indicate the device target.
+
 1. Run `02_sycl_dpct_migrated` for CPU and GPU.
-    ```
+     ```
     make run_sdm_cpu
     make run_sdm_gpu
     ```
